@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task Input</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input[type="text"],
+        textarea,
+        input[type="datetime-local"] {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        input[type="submit"] {
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Task Input Form</h1>
+    <form method="post" action="{% url 'task_input' %}">
+        {% csrf_token %}
+        <label for="title">Title:</label>
+        <input type="text" name="title" required><br>
+        
+        <label for="description">Description:</label>
+        <textarea name="description" required></textarea><br>
+        
+        <label for="created_at">Created At:</label>
+        <input type="datetime-local" name="created_at" id="created_at" required><br>
+        
+        <input type="submit" value="Submit">
+    </form>
+
+    <a href="{% url 'task_list' %}">Go to Task List</a>
+
+    <script>
+        // Function to set the current date and time in the 'created_at' field
+        function setCurrentDateTime() {
+            var now = new Date();
+            var year = now.getFullYear();
+            var month = String(now.getMonth() + 1).padStart(2, '0');  // Add 1 to month because it's zero-based
+            var day = String(now.getDate()).padStart(2, '0');
+            var hours = String(now.getHours()).padStart(2, '0');
+            var minutes = String(now.getMinutes()).padStart(2, '0');
+
+            var currentDateTime = year + '-' + month + '-' + day + 'T' + hours + ':' + minutes;
+            document.getElementById('created_at').value = currentDateTime;
+        }
+
+        // Call the function when the page loads
+        window.onload = setCurrentDateTime;
+    </script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Task List</title>
+</head>
+<body>
+    <h1>Task List</h1>
+    <ul>
+        {% for task in tasks %}
+            <li>{{ task.title }} - {{ task.description }}</li>
+        {% empty %}
+            <li>No tasks available.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'task_input' %}">Go to Task Input</a>
+</body>
+</html>
